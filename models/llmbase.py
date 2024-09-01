@@ -8,6 +8,7 @@ from typing import (
             )
   
 import json
+from venv import logger
 
 
 class Basellm():
@@ -22,8 +23,10 @@ class Basellm():
             stop=[')```', ')\n```'],
         )
 
-    def parse_response(self, response) -> str:
-        action_str = response['choices'][0]['message']['content']
+        return response
+
+    def parse_response(self, response) -> list:
+        action_str : list = response['choices'][0]['message']['content']
         if action_str is None:
             return ''
         action_str = action_str.strip()

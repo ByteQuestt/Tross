@@ -3,25 +3,33 @@ import json
 import typing 
 import execute
 from models import llmbase
+
+
 class ContextAlpha:
 
     def __init__(self, Basellm,) -> None:
-        self.model = Basellm()
+        self.model = llmbase.Basellm()
         sys.prompt =""
 
 
 
-    def functionlist(self, list : typing.List):
+    def functionlist(cls, list : typing.List):
         return list
     
 
-    def execute(self, list : typing.List[typing.Callable])-> typing.Any:
+    def execute(cls, list : typing.List[typing.Callable])-> typing.Any:
       result: typing.Dict = {
           
       }
       for i in list:
           result[i.__getattribute__()] = execute(i)
 
-    def step():
-        
+      return result
+
+    def step(cls):
+        result = cls.model.getresponse()
+        methods :list = cls.model.parse_response(result)
+        if isinstance(methods, list):
+         outputs = cls.execute(methods)
+
           
