@@ -26,11 +26,11 @@ class Basellm():
         return response
 
     def parse_response(self, response) -> list:
-        action_str : list = response['choices'][0]['message']['content']
+        action = response['choices'][0][0]['message']['content']
         if action_str is None:
             return ''
         action_str = action_str.strip()
         if not action_str.endswith('```'):
             action_str = action_str + ')```'
         logger.info(action_str)
-        return action_str
+        return action

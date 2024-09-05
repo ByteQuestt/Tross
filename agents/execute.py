@@ -1,5 +1,5 @@
 import typing
 
 
-def execute( fn : typing.Callable):
+def execute( fn : typing.Callable, args : str):
     pass

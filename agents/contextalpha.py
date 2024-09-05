@@ -3,6 +3,7 @@ import json
 import typing 
 import execute
 from models import llmbase
+from agents import utils
 
 
 class ContextAlpha:
@@ -28,8 +29,24 @@ class ContextAlpha:
 
     def step(cls):
         result = cls.model.getresponse()
-        methods :list = cls.model.parse_response(result)
-        if isinstance(methods, list):
-         outputs = cls.execute(methods)
+        action = cls.model.parse_response(result)
+        # if isinstance(action, dict):
+        #  outputs = cls.execute(methods, args )
+    
+    def actions( cls , 
+            action:typing.Optional, # type: ignore
+            method: typing.Optional, # type: ignore
+            args
+    ):
+       if action == "searchClass":
+        output =  cls.execute(utils.searchcls())
+        return output
 
+       if action == "searchmethod":
+          output = cls.execute(utils.searchmethods())
+          return output
+    
+       if action == "executescript":
+          output = cls.execute()
+          return output
           
